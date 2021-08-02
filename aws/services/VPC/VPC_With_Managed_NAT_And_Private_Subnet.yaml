@@ -58,7 +58,6 @@
         AZs: ["a", "b"]
 
   Resources:
-
     VPC:
       Type: "AWS::EC2::VPC"
       Properties:
@@ -221,7 +220,7 @@
               - - !Ref "VPCName"
                 - '-IGW'
 
-
+    # This is to attach internetgateway into the VPC
     GatewayToInternet:
       Type: "AWS::EC2::VPCGatewayAttachment"
       Properties:
@@ -229,7 +228,7 @@
           Ref: "VPC"
         InternetGatewayId:
           Ref: "InternetGateway"
-
+    # Create public route table
     PublicRouteTable:
       Type: "AWS::EC2::RouteTable"
       Properties:
@@ -250,7 +249,7 @@
               - - !Ref "VPCName"
                 - '-public-route-table'
 
-
+    # Add route entries into the public route table
     PublicRoute:
       Type: "AWS::EC2::Route"
       DependsOn: "GatewayToInternet"
